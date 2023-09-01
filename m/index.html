@@ -2,29 +2,72 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="data/cdn.jsdelivr.net_npm_bootstrap@5.3.0_dist_css_bootstrap.min.css" rel="stylesheet">
+  <script src="data/cdn.jsdelivr.net_npm_bootstrap@5.3.0_dist_js_bootstrap.bundle.min.js"></script>
+<script src="data/code.jquery.com_jquery-3.6.0.min.js"></script>
 </head>
-<body>
-<div class="container mt-5">
-  <h1>moeJAV-mobile</h1>
-  
-  <div class="row">
-  
+<style>
+       /* Center the body content horizontally and vertically */
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Make the body take up the full viewport height */
+            margin: 0; /* Remove default margin */
+        }
 
-    <div>
+        /* Add some styling to the centered content */
+        .centered-content {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+</style>
+<body class="centered-content">
+<div class="container mt-5">
+  <div class="row">
+  <h3>jsGO</h3><br>
+<div style="text-align: center;">
+
+    <button id="openButton" class="btn  pop-in"><img src="data/img/clear.png" width="34" height="34"></button>
+    <button id="saveButton" class="btn"><img src="data/img/clear.png" width="34" height="34"></button>
+    <button id="clearButton" class="btn"><img src="data/img/clear.png" width="34" height="34"></button>
+    <button id="clearButton" class="btn"><img src="data/img/clear.png" width="34" height="34"></button>
 	
-	 <br>
+</div>
+
+	<br><br><br>
+<div>	
+
      <textarea id="code" rows="10" class="form-control" style="width: 100%;">console.log("Hello world ^_^");</textarea>
 	 <br>
-	 <button id="runButton" class="btn btn-primary" style="width: 100%;">Jalankan</button>
-<br><br><br><br>
- <button id="openButton" class="btn btn-primary" >Muat</button>
-	 <button id="toggleDarkModeButton" class="btn btn-dark-mode">Mode Gelap</button>
+	 <div style="text-align: center;">
+  <button id="runButton" class="btn "><img src="data/img/run.png" width="34" height="34"></button>
+
+	
+</div>
+	 
+<br><br>
+
+
+
+
+<div style="text-align: center;">
+<button id="toggleDarkModeButton" class="btn btn-dark-mode"> Mode Gelap</button><br>
+<br>
+<button id="saveButton" class="btn"><img src="data/img/clear.png" width="34" height="34"></button>
+<p>moqbit @2023</p>
+
+
+ </div>
+
     </div>
 	
 
   </div>
+
 </div>
 
 <!-- Modal untuk Output -->
@@ -39,18 +82,126 @@
       </div>
       <div class="modal-body">
         <pre id="outputModalContent" class="border"></pre>
-		   <button id="saveButton" class="btn btn-primary" style="width: 100%;">Simpan</button>
-		   <br> <br>
 		   <button type="button"  data-bs-dismiss="modal" class="btn btn-secondary"  style="width: 100%;">Tutup</button>
 		   
       </div>
     </div>
   </div>
+
+</div>
+<div >
+  
+  
+</nav>
+</div>
+<!-- Modal konfirmasi untuk menghapus teks -->
+<div class="modal fade" id="clearConfirmationModal" tabindex="-1" aria-labelledby="clearConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clearConfirmationModalLabel">♻ Konfirmasi Hapus Teks</h5>
+             
+            </div>
+            <div class="modal-body">
+                Apakah kamu yakin ingin menghapus teks dari input yang telah kamu tulis?
+            </div>
+            <div class="modal-footer">
+               
+                <button type="button" id="confirmClearButton" class="btn btn-danger" style="width: 100%;">Ya</button>
+				 <button type="button" id="cancelClearButton" class="btn btn-secondary" data-bs-dismiss="modal" style="width: 100%;">Tidak</button>
+            </div>
+        </div>
+    </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Modal konfirmasi untuk menghapus teks -->
+<div class="modal fade" id="" tabindex="-1" aria-labelledby="clearConfirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="clearConfirmationModalLabel">Konfirmasi Hapus Teks</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Apakah kamu yakin ingin menghapus teks dari input yang telah kamu tulis?
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="cancelClearButton" class="btn btn-secondary" data-bs-dismiss="modal">Tidak</button>
+                <button type="button" id="confirmClearButton" class="btn btn-danger">Ya</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<script>
+
+$(document).ready(function() {
+    // ...
+
+    // Menambahkan event listener untuk tombol "Clear Text"
+    $('#clearButton').click(function() {
+        $('#clearConfirmationModal').removeClass('zoom-out').addClass('zoom-in').modal('show');
+    });
+
+    // Event listener untuk tombol "Ya" pada modal konfirmasi
+    $('#confirmClearButton').click(function() {
+        $('#code').val(''); // Hapus teks dari textarea
+        $('#clearConfirmationModal').removeClass('zoom-out').addClass('zoom-out');
+    });
+
+    // Event listener untuk tombol "Tidak" pada modal konfirmasi
+    $('#cancelClearButton').click(function() {
+        $('#clearConfirmationModal').removeClass('zoom-out').addClass('zoom-out');
+    });
+
+    // Event listener saat animasi modal selesai untuk menghilangkan modal
+    $('#clearConfirmationModal').on('animationend', function() {
+        if ($(this).hasClass('zoom-out')) {
+            $(this).modal('hide');
+        }
+    });
+
+    // ...
+});
+
+</script>
+
+
+
 <style>
+/* Animasi zoom in */
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+/* Animasi zoom out */
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+
+/* Gaya untuk modal dengan animasi zoom in */
+.modal.zoom-in {
+  animation: zoomIn 0.3s forwards;
+}
+
+/* Gaya untuk modal dengan animasi zoom out */
+.modal.zoom-out {
+  animation: zoomOut 0.3s forwards;
+}
+
 /* Gaya untuk modal dalam mode gelap */
 .dark-mode .modal-content {
   background-color: #333; /* Warna latar belakang modal */
@@ -132,20 +283,9 @@ textarea.dark-mode {
 </style>
 <script>
 // Fungsi untuk mengaktifkan dark mode
-function enableDarkMode() {
-  body.classList.add('dark-mode');
-  toggleDarkModeButton.innerText = 'Mode Terang';
-  outputModalContent.classList.add('dark-mode'); // Menambah class dark-mode
-  localStorage.setItem('darkMode', 'enabled');
-}
 
-// Fungsi untuk menonaktifkan dark mode
-function disableDarkMode() {
-  body.classList.remove('dark-mode');
-  toggleDarkModeButton.innerText = 'Mode Gelap';
-  outputModalContent.classList.remove('dark-mode'); // Menghapus class dark-mode
-  localStorage.setItem('darkMode', 'disabled');
-}
+
+
 
 // JavaScript untuk mengganti mode
 $(document).ready(function() {
@@ -156,14 +296,14 @@ $(document).ready(function() {
   // Fungsi untuk mengaktifkan dark mode
   function enableDarkMode() {
     body.classList.add('dark-mode');
-    toggleDarkModeButton.innerText = 'Mode Terang';
+    toggleDarkModeButton.innerText = '☼  Mode Terang';
     localStorage.setItem('darkMode', 'enabled');
   }
 
   // Fungsi untuk menonaktifkan dark mode
   function disableDarkMode() {
     body.classList.remove('dark-mode');
-    toggleDarkModeButton.innerText = 'Mode Gelap';
+    toggleDarkModeButton.innerText = '☾ Mode Gelap';
     localStorage.setItem('darkMode', 'disabled');
   }
 
