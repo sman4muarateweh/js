@@ -6,3 +6,4 @@ didalamnya terdapat beberapa bahan ajar yang mana menyesuaikan kurikulum merdeka
 Informatika"<br>
 "Muatan Lokal dan lain-lain"<br>
 
+WIP 34% (pengkajian pemahaman uthman codex serta hubungannya dengan budaya lokal sekitar)
